@@ -51,7 +51,7 @@ export function TopBar({ tab, onTabChange }: Props) {
         <button
           type="button"
           onClick={() => setActiveCareer(null)}
-          className="text-sm font-semibold text-white hover:text-gray-300"
+          className="text-base font-semibold text-white hover:text-gray-300"
           title="Retour aux carrières"
         >
           Career Planner
@@ -60,7 +60,7 @@ export function TopBar({ tab, onTabChange }: Props) {
         <select
           value={activeCareer.id}
           onChange={(e) => setActiveCareer(e.target.value)}
-          className="rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-[#5b8cff]/60"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1 text-sm text-white outline-none focus:border-[#5b8cff]/60"
         >
           {state.careers.map((c: Career) => (
             <option key={c.id} value={c.id}>
@@ -80,13 +80,13 @@ export function TopBar({ tab, onTabChange }: Props) {
             onKeyDown={(e) => {
               if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
             }}
-            className="w-24 rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-[#5b8cff]/60"
+            className="w-24 rounded border border-white/10 bg-black/20 px-2 py-1 text-sm text-white outline-none focus:border-[#5b8cff]/60"
           />
         ) : (
           <button
             type="button"
             onClick={() => setEditingSeason(true)}
-            className="rounded border border-white/10 px-2 py-1 text-xs text-gray-400 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1 text-sm text-gray-400 hover:bg-white/5"
             title="Modifier la saison"
           >
             Saison {activeCareer.season}
@@ -99,7 +99,7 @@ export function TopBar({ tab, onTabChange }: Props) {
               key={t.id}
               type="button"
               onClick={() => onTabChange(t.id)}
-              className={`border-b-2 pb-0.5 text-sm transition-colors ${
+              className={`border-b-2 pb-0.5 text-base transition-colors ${
                 tab === t.id
                   ? 'border-[#5b8cff] text-white'
                   : 'border-transparent text-gray-400 hover:text-gray-300'
@@ -114,7 +114,7 @@ export function TopBar({ tab, onTabChange }: Props) {
           <button
             type="button"
             onClick={handleExport}
-            className="rounded border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1.5 text-sm text-gray-300 hover:bg-white/5"
             title="Exporter en JSON"
           >
             Export
@@ -122,7 +122,7 @@ export function TopBar({ tab, onTabChange }: Props) {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="rounded border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1.5 text-sm text-gray-300 hover:bg-white/5"
             title="Importer un JSON"
           >
             Import
