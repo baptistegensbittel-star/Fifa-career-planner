@@ -40,14 +40,14 @@ export function PitchView() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-lg uppercase tracking-wide text-gray-400">Formation</span>
+        <span className="text-[28px] uppercase tracking-wide text-gray-400">Formation</span>
         <select
           value={formation.code}
           onChange={(e) =>
             activeCareer &&
             updateCareer(activeCareer.id, { formation: e.target.value as FormationCode })
           }
-          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
         >
           {FORMATIONS.map((f) => (
             <option key={f.code} value={f.code}>
@@ -58,7 +58,7 @@ export function PitchView() {
       </div>
 
       <div
-        className="relative mx-auto aspect-[2/3] w-full max-w-md overflow-hidden border border-white/10"
+        className="relative mx-auto aspect-[2/3] w-full max-w-lg overflow-hidden border border-white/10"
         style={{ background: '#1e5631' }}
       >
         <div className="absolute inset-3 border border-white/20" />
@@ -85,7 +85,7 @@ export function PitchView() {
                 title={titulaire ? 'Modifier le titulaire' : 'Ajouter un titulaire'}
               >
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-full border text-[17px] text-white"
+                  className="flex h-16 w-16 items-center justify-center rounded-full border text-[27px] text-white"
                   style={{
                     background: tier ? tier.color : titulaire ? '#3f4657' : 'rgba(255,255,255,0.08)',
                     borderColor: 'rgba(255,255,255,0.4)',
@@ -94,7 +94,7 @@ export function PitchView() {
                 >
                   {titulaire?.rating ?? slot.label}
                 </div>
-                <span className="max-w-[76px] truncate bg-black/50 px-1 text-base text-white">
+                <span className="max-w-[100px] truncate bg-black/50 px-1 text-[26px] text-white">
                   {titulaire?.name ?? slot.label}
                 </span>
               </button>
@@ -102,7 +102,7 @@ export function PitchView() {
               <button
                 type="button"
                 onClick={() => remplacant && setEditing(remplacant)}
-                className={`max-w-[76px] truncate px-1 text-[15px] ${
+                className={`max-w-[100px] truncate px-1 text-[25px] ${
                   remplacant ? 'text-gray-300 hover:text-white' : 'text-gray-400'
                 }`}
                 title={remplacant ? 'Modifier le remplaçant' : 'Aucun remplaçant à ce poste'}

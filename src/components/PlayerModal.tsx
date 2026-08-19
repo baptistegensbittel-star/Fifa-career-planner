@@ -77,11 +77,11 @@ export function PlayerModal({ player, initial, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="w-full max-w-sm rounded-lg border border-white/10 bg-[#141a29] p-5"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg border border-white/10 bg-[#141a29] p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-[22px] font-medium text-white">
+          <h2 className="text-4xl font-medium text-white">
             {isNew ? 'Ajouter un joueur' : 'Modifier le joueur'}
           </h2>
           <button
@@ -94,7 +94,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <label className="relative flex flex-col gap-1 text-lg text-gray-400">
+          <label className="relative flex flex-col gap-1 text-[28px] text-gray-400">
             Nom
             <input
               autoFocus
@@ -106,7 +106,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               onFocus={() => setSuggestionsOpen(true)}
               onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
               autoComplete="off"
-              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
               placeholder="Nom du joueur"
               required
             />
@@ -118,10 +118,10 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => pickSuggestion(p)}
-                      className="flex w-full items-center justify-between px-2 py-1.5 text-left text-xl text-gray-200 hover:bg-white/5"
+                      className="flex w-full items-center justify-between px-2 py-1.5 text-left text-3xl text-gray-200 hover:bg-white/5"
                     >
                       <span>{p.name}</span>
-                      <span className="text-lg text-gray-400">{p.club}</span>
+                      <span className="text-[28px] text-gray-400">{p.club}</span>
                     </button>
                   </li>
                 ))}
@@ -130,12 +130,12 @@ export function PlayerModal({ player, initial, onClose }: Props) {
           </label>
 
           <div className="grid grid-cols-2 gap-3">
-            <label className="flex flex-col gap-1 text-lg text-gray-400">
+            <label className="flex flex-col gap-1 text-[28px] text-gray-400">
               Poste
               <select
                 value={positionCode}
                 onChange={(e) => setPositionCode(e.target.value as PositionCode)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
               >
                 {POSITIONS.map((p) => (
                   <option key={p.code} value={p.code}>
@@ -145,12 +145,12 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               </select>
             </label>
 
-            <label className="flex flex-col gap-1 text-lg text-gray-400">
+            <label className="flex flex-col gap-1 text-[28px] text-gray-400">
               Profondeur
               <select
                 value={depthCategory}
                 onChange={(e) => setDepthCategory(e.target.value as DepthCategory)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
               >
                 {DEPTH_CATEGORIES.map((d) => (
                   <option key={d.code} value={d.code}>
@@ -160,12 +160,12 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               </select>
             </label>
 
-            <label className="flex flex-col gap-1 text-lg text-gray-400">
+            <label className="flex flex-col gap-1 text-[28px] text-gray-400">
               Tier
               <select
                 value={tier}
                 onChange={(e) => setTier(e.target.value as Tier)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
               >
                 <option value="">-</option>
                 {TIERS.map((t) => (
@@ -176,7 +176,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               </select>
             </label>
 
-            <label className="flex flex-col gap-1 text-lg text-gray-400">
+            <label className="flex flex-col gap-1 text-[28px] text-gray-400">
               Note
               <input
                 type="number"
@@ -184,26 +184,26 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 max={99}
                 value={rating}
                 onChange={(e) => setRating(e.target.value)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
               />
             </label>
           </div>
 
           {confirmingDelete && player ? (
             <div className="mt-2 flex items-center justify-between rounded border border-red-500/20 bg-red-500/5 px-3 py-2">
-              <span className="text-xl text-gray-300">Supprimer {player.name} ?</span>
+              <span className="text-3xl text-gray-300">Supprimer {player.name} ?</span>
               <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setConfirmingDelete(false)}
-                  className="text-xl text-gray-400 hover:underline"
+                  className="text-3xl text-gray-400 hover:underline"
                 >
                   Annuler
                 </button>
                 <button
                   type="button"
                   onClick={handleDelete}
-                  className="text-xl font-medium text-red-400 hover:underline"
+                  className="text-3xl font-medium text-red-400 hover:underline"
                 >
                   Confirmer
                 </button>
@@ -215,7 +215,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 <button
                   type="button"
                   onClick={() => setConfirmingDelete(true)}
-                  className="text-xl text-red-400 hover:underline"
+                  className="text-3xl text-red-400 hover:underline"
                 >
                   Supprimer
                 </button>
@@ -226,13 +226,13 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="rounded px-3 py-1.5 text-xl text-gray-300 hover:bg-white/5"
+                  className="rounded px-3 py-1.5 text-3xl text-gray-300 hover:bg-white/5"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="rounded bg-[#5b8cff] px-3 py-1.5 text-xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
+                  className="rounded bg-[#5b8cff] px-3 py-1.5 text-3xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
                 >
                   Enregistrer
                 </button>

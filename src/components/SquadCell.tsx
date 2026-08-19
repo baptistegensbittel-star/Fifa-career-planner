@@ -31,7 +31,7 @@ export function SquadCell({ positionCode, depthCategory, players, onEdit, onAdd 
       <button
         type="button"
         onClick={() => onAdd(positionCode, depthCategory)}
-        className="px-2 py-1 text-left text-[17px] text-gray-400 hover:text-gray-300"
+        className="px-2 py-1 text-left text-[27px] text-gray-400 hover:text-gray-300"
       >
         + Ajouter
       </button>
