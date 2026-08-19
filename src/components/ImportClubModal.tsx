@@ -3,6 +3,7 @@ import { useStore } from '../store/store';
 import type { PositionCode } from '../types/domain';
 import { loadClubs } from '../data/clubsData';
 import type { ClubData } from '../data/clubsData';
+import { CloseIcon } from './icons';
 
 interface Props {
   onClose: () => void;
@@ -48,8 +49,8 @@ export function ImportClubModal({ onClose }: Props) {
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-base font-medium text-white">Importer un club</h2>
-          <button type="button" onClick={onClose} className="text-gray-500 hover:text-white">
-            ✕
+          <button type="button" onClick={onClose} className="text-gray-400 hover:text-white">
+            <CloseIcon />
           </button>
         </div>
 
@@ -91,7 +92,7 @@ export function ImportClubModal({ onClose }: Props) {
               <div className="mt-3 flex flex-col gap-3">
                 <div className="rounded border border-white/10 p-3">
                   <div className="text-sm text-white">{selected.club}</div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-400">
                     {selected.league} · {selected.players.length} joueurs
                   </div>
                 </div>
@@ -122,12 +123,12 @@ export function ImportClubModal({ onClose }: Props) {
                       className="flex w-full items-center justify-between px-1 py-1.5 text-left text-sm text-gray-200 hover:bg-white/5"
                     >
                       <span>{c.club}</span>
-                      <span className="text-xs text-gray-500">{c.league}</span>
+                      <span className="text-xs text-gray-400">{c.league}</span>
                     </button>
                   </li>
                 ))}
                 {query.trim().length >= 2 && results.length === 0 && (
-                  <li className="px-1 py-1.5 text-xs text-gray-600">Aucun club trouvé.</li>
+                  <li className="px-1 py-1.5 text-xs text-gray-400">Aucun club trouvé.</li>
                 )}
               </ul>
             )}

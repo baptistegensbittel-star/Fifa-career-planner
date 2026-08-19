@@ -52,10 +52,10 @@ export interface TierDef {
 
 export const TIERS: TierDef[] = [
   { code: 'decisif', label: 'Décisif', color: '#22c55e', textColor: '#052e12' },
-  { code: 'important', label: 'Important', color: '#3b82f6', textColor: '#0b1a3d' },
+  { code: 'important', label: 'Important', color: '#3b82f6', textColor: '#081736' },
   { code: 'rotation', label: 'Rotation', color: '#f59e0b', textColor: '#3d2a04' },
   { code: 'sporadique', label: 'Sporadique', color: '#eab308', textColor: '#3d3204' },
-  { code: 'espoir', label: 'Espoir', color: '#a855f7', textColor: '#2e0a4d' },
+  { code: 'espoir', label: 'Espoir', color: '#a855f7', textColor: '#150328' },
 ];
 
 export interface Player {

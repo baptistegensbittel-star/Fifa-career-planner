@@ -73,13 +73,13 @@ export function CareerDashboard() {
 
       {state.careers.length > 0 && (
         <div className="flex flex-col gap-2">
-          <h2 className="text-xs uppercase tracking-wide text-gray-500">Tes carrières</h2>
+          <h2 className="text-xs uppercase tracking-wide text-gray-400">Tes carrières</h2>
           <ul className="flex flex-col divide-y divide-white/10 border border-white/10">
             {state.careers.map((c) => (
               <li key={c.id} className="flex items-center justify-between px-3 py-2">
                 <button type="button" onClick={() => setActiveCareer(c.id)} className="text-left">
                   <div className="text-sm text-white">{c.name}</div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-400">
                     {c.club} · saison {c.season}
                   </div>
                 </button>
@@ -98,7 +98,7 @@ export function CareerDashboard() {
                         deleteCareer(c.id);
                       }
                     }}
-                    className="text-xs text-gray-600 hover:text-red-400"
+                    className="text-xs text-gray-400 hover:text-red-400"
                     title="Supprimer"
                   >
                     Supprimer
@@ -111,7 +111,7 @@ export function CareerDashboard() {
       )}
 
       <form onSubmit={handleCreate} className="flex flex-col gap-3 border border-white/10 p-4">
-        <h2 className="text-xs uppercase tracking-wide text-gray-500">Nouvelle carrière</h2>
+        <h2 className="text-xs uppercase tracking-wide text-gray-400">Nouvelle carrière</h2>
         <div className="grid grid-cols-2 gap-3">
           <div className="relative">
             <input
@@ -139,7 +139,7 @@ export function CareerDashboard() {
                       className="flex w-full flex-col px-2 py-1.5 text-left text-sm text-gray-200 hover:bg-white/5"
                     >
                       <span>{c.club}</span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-400">
                         {c.league} · {c.players.length} joueurs
                       </span>
                     </button>
@@ -148,7 +148,7 @@ export function CareerDashboard() {
               </ul>
             )}
             {selectedClub && (
-              <p className="mt-1 text-[11px] text-gray-500">
+              <p className="mt-1 text-[11px] text-gray-400">
                 Effectif de {selectedClub.club} ({selectedClub.players.length} joueurs) sera importé
               </p>
             )}
@@ -174,7 +174,7 @@ export function CareerDashboard() {
         </button>
       </form>
 
-      <div className="flex items-center gap-3 text-xs text-gray-500">
+      <div className="flex items-center gap-3 text-xs text-gray-400">
         <span>Tu as une sauvegarde JSON ?</span>
         <button
           type="button"

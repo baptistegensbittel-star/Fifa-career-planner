@@ -103,7 +103,7 @@ export function PitchView() {
                 type="button"
                 onClick={() => remplacant && setEditing(remplacant)}
                 className={`max-w-[76px] truncate px-1 text-[9px] ${
-                  remplacant ? 'text-gray-300 hover:text-white' : 'text-gray-600'
+                  remplacant ? 'text-gray-300 hover:text-white' : 'text-gray-400'
                 }`}
                 title={remplacant ? 'Modifier le remplaçant' : 'Aucun remplaçant à ce poste'}
               >
@@ -116,7 +116,7 @@ export function PitchView() {
                     <span className="truncate">{remplacant.name}</span>
                   </span>
                 ) : (
-                  '—'
+                  '-'
                 )}
               </button>
             </div>

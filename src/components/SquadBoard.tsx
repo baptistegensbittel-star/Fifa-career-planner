@@ -171,7 +171,7 @@ export function SquadBoard() {
           Importer un club
         </button>
       </div>
-      <div className="overflow-x-auto rounded border border-white/10 bg-[#141a29]">
+      <div className="overflow-x-auto border border-white/10 bg-[#141a29]">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -195,7 +195,7 @@ export function SquadBoard() {
               <tr key={pos.code} className="border-b border-white/5 align-top last:border-0">
                 <td className="px-3 py-2 text-xs font-semibold text-gray-300">
                   <div>{pos.code}</div>
-                  <div className="text-[10px] font-normal text-gray-500">{pos.label}</div>
+                  <div className="text-[10px] font-normal text-gray-400">{pos.label}</div>
                 </td>
                 {DEPTH_CATEGORIES.map((d) => (
                   <td key={d.code} className="px-2 py-2">

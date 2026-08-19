@@ -4,6 +4,7 @@ import type { DepthCategory, Player, PositionCode, Tier } from '../types/domain'
 import { useStore } from '../store/store';
 import { loadPlayerIndex } from '../data/clubsData';
 import type { FlatPlayer } from '../data/clubsData';
+import { CloseIcon } from './icons';
 
 interface Props {
   player: Player | null;
@@ -86,9 +87,9 @@ export function PlayerModal({ player, initial, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-500 hover:text-white"
+            className="text-gray-400 hover:text-white"
           >
-            ✕
+            <CloseIcon />
           </button>
         </div>
 
@@ -120,7 +121,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                       className="flex w-full items-center justify-between px-2 py-1.5 text-left text-sm text-gray-200 hover:bg-white/5"
                     >
                       <span>{p.name}</span>
-                      <span className="text-xs text-gray-500">{p.club}</span>
+                      <span className="text-xs text-gray-400">{p.club}</span>
                     </button>
                   </li>
                 ))}
@@ -166,7 +167,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 onChange={(e) => setTier(e.target.value as Tier)}
                 className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               >
-                <option value="">—</option>
+                <option value="">-</option>
                 {TIERS.map((t) => (
                   <option key={t.code} value={t.code}>
                     {t.label}

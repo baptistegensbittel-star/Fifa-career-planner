@@ -102,7 +102,7 @@ export function TopBar({ tab, onTabChange }: Props) {
               className={`border-b-2 pb-0.5 text-sm transition-colors ${
                 tab === t.id
                   ? 'border-[#5b8cff] text-white'
-                  : 'border-transparent text-gray-500 hover:text-gray-300'
+                  : 'border-transparent text-gray-400 hover:text-gray-300'
               }`}
             >
               {t.label}

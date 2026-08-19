@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../store/store';
 import { incrementSeasonLabel } from '../store/store';
+import { CloseIcon } from './icons';
 
 export function HonorsView() {
   const { activeCareer, updateCareer, archiveSeason } = useStore();
@@ -41,8 +42,8 @@ export function HonorsView() {
   return (
     <div className="flex flex-col gap-6">
       <div className="border border-white/10 p-4">
-        <h2 className="text-xs uppercase tracking-wide text-gray-500">
-          Saison en cours — {activeCareer.season}
+        <h2 className="text-xs uppercase tracking-wide text-gray-400">
+          Saison en cours · {activeCareer.season}
         </h2>
 
         <div className="mt-3 flex flex-col gap-3">
@@ -66,10 +67,10 @@ export function HonorsView() {
                     <button
                       type="button"
                       onClick={() => removeTrophy(i)}
-                      className="text-gray-600 hover:text-red-400"
+                      className="text-gray-400 hover:text-red-400"
                       title="Retirer"
                     >
-                      ✕
+                      <CloseIcon className="h-3 w-3" />
                     </button>
                   </li>
                 ))}
@@ -136,9 +137,9 @@ export function HonorsView() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <h2 className="text-xs uppercase tracking-wide text-gray-500">Historique</h2>
+        <h2 className="text-xs uppercase tracking-wide text-gray-400">Historique</h2>
         {activeCareer.seasonHistory.length === 0 ? (
-          <p className="text-sm text-gray-600">Aucune saison archivée pour l'instant.</p>
+          <p className="text-sm text-gray-400">Aucune saison archivée pour l'instant.</p>
         ) : (
           <ul className="flex flex-col gap-2">
             {[...activeCareer.seasonHistory].reverse().map((s) => (
@@ -148,7 +149,7 @@ export function HonorsView() {
                   <button
                     type="button"
                     onClick={() => deleteHistoryEntry(s.id)}
-                    className="text-xs text-gray-600 hover:text-red-400"
+                    className="text-xs text-gray-400 hover:text-red-400"
                   >
                     Supprimer
                   </button>
@@ -166,7 +167,7 @@ export function HonorsView() {
                     ))}
                   </div>
                 ) : (
-                  <div className="mt-2 text-xs text-gray-600">Aucun trophée noté.</div>
+                  <div className="mt-2 text-xs text-gray-400">Aucun trophée noté.</div>
                 )}
               </li>
             ))}
