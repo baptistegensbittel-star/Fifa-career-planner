@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useStore } from '../store/store';
 import type { Career } from '../types/domain';
 
-export type Tab = 'squad' | 'pitch' | 'transfers';
+export type Tab = 'squad' | 'pitch';
 
 interface Props {
   tab: Tab;
@@ -42,25 +42,24 @@ export function TopBar({ tab, onTabChange }: Props) {
   const tabs: { id: Tab; label: string }[] = [
     { id: 'squad', label: 'Effectif' },
     { id: 'pitch', label: 'Terrain' },
-    { id: 'transfers', label: 'Transferts' },
   ];
 
   return (
-    <div className="sticky top-0 z-40 border-b border-white/10 bg-[#0d0f14]/95 backdrop-blur">
+    <div className="sticky top-0 z-40 border-b border-white/10 bg-[#0d0f14]">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
         <button
           type="button"
           onClick={() => setActiveCareer(null)}
-          className="text-sm font-bold text-white hover:text-emerald-400"
+          className="text-sm font-semibold text-white hover:text-gray-300"
           title="Retour aux carrières"
         >
-          ⚽ Career Planner
+          Career Planner
         </button>
 
         <select
           value={activeCareer.id}
           onChange={(e) => setActiveCareer(e.target.value)}
-          className="rounded-md border border-white/10 bg-black/30 px-2 py-1 text-xs text-white outline-none focus:border-emerald-400"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-white/30"
         >
           {state.careers.map((c: Career) => (
             <option key={c.id} value={c.id}>
@@ -80,29 +79,29 @@ export function TopBar({ tab, onTabChange }: Props) {
             onKeyDown={(e) => {
               if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
             }}
-            className="w-24 rounded-md border border-white/10 bg-black/30 px-2 py-1 text-xs text-white outline-none focus:border-emerald-400"
+            className="w-24 rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-white/30"
           />
         ) : (
           <button
             type="button"
             onClick={() => setEditingSeason(true)}
-            className="rounded-md border border-white/10 px-2 py-1 text-xs text-gray-400 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1 text-xs text-gray-400 hover:bg-white/5"
             title="Modifier la saison"
           >
             Saison {activeCareer.season}
           </button>
         )}
 
-        <nav className="ml-auto flex items-center gap-1 rounded-lg border border-white/10 bg-black/20 p-1">
+        <nav className="ml-auto flex items-center gap-4">
           {tabs.map((t) => (
             <button
               key={t.id}
               type="button"
               onClick={() => onTabChange(t.id)}
-              className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${
+              className={`border-b-2 pb-0.5 text-sm transition-colors ${
                 tab === t.id
-                  ? 'bg-emerald-500 text-emerald-950'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'border-white text-white'
+                  : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
             >
               {t.label}
@@ -114,7 +113,7 @@ export function TopBar({ tab, onTabChange }: Props) {
           <button
             type="button"
             onClick={handleExport}
-            className="rounded-md border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
             title="Exporter en JSON"
           >
             Export
@@ -122,7 +121,7 @@ export function TopBar({ tab, onTabChange }: Props) {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="rounded-md border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
+            className="rounded border border-white/10 px-2 py-1.5 text-xs text-gray-300 hover:bg-white/5"
             title="Importer un JSON"
           >
             Import

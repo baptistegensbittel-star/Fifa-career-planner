@@ -58,36 +58,20 @@ export const TIERS: TierDef[] = [
   { code: 'espoir', label: 'Espoir', color: '#a855f7', textColor: '#2e0a4d' },
 ];
 
-export type PlayerStatus = 'squad' | 'loan' | 'watchlist' | 'sold' | 'released';
-
 export interface Player {
   id: string;
   careerId: string;
   name: string;
   positionCode: PositionCode;
-  status: PlayerStatus;
-  depthCategory: DepthCategory | null;
+  depthCategory: DepthCategory;
   depthOrder: number;
   tier: Tier | null;
   rating: number | null;
-  age: number | null;
-  potential: number | null;
-  value: string;
-  contractEnd: string;
-  sofifaUrl: string;
-  destinationClub: string;
-  notes: string;
   createdAt: number;
   updatedAt: number;
 }
 
-export type FormationCode =
-  | '4-2-3-1'
-  | '4-3-3'
-  | '4-4-2'
-  | '4-1-2-1-2'
-  | '3-5-2'
-  | '3-4-3';
+export type FormationCode = string;
 
 export interface FormationSlot {
   key: string;

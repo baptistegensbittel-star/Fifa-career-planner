@@ -1,108 +1,181 @@
-import type { FormationDef } from '../types/domain';
+import type { FormationDef, FormationSlot, PositionCode } from '../types/domain';
+
+// x-coordinates (in %) for evenly spread lines of n players
+const SPREAD: Record<number, number[]> = {
+  1: [50],
+  2: [30, 70],
+  3: [20, 50, 80],
+  4: [18, 38, 62, 82],
+  5: [10, 30, 50, 70, 90],
+};
+
+interface LineItem {
+  code: PositionCode;
+  label?: string;
+}
+
+function line(y: number, items: LineItem[]): FormationSlot[] {
+  const xs = SPREAD[items.length] ?? SPREAD[3];
+  return items.map((item, i) => ({
+    key: `${item.code.toLowerCase()}-${y}-${i}`,
+    positionCode: item.code,
+    label: item.label ?? item.code,
+    x: xs[i],
+    y,
+  }));
+}
+
+function keeper(): FormationSlot {
+  return { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 };
+}
+
+function back4(): LineItem[] {
+  return [{ code: 'DD' }, { code: 'DC' }, { code: 'DC' }, { code: 'DG' }];
+}
+function back3(): LineItem[] {
+  return [{ code: 'DC' }, { code: 'DC' }, { code: 'DC' }];
+}
+function back5(): LineItem[] {
+  return [{ code: 'DD' }, { code: 'DC' }, { code: 'DC' }, { code: 'DC' }, { code: 'DG' }];
+}
+
+function build(code: string, label: string, lines: FormationSlot[][]): FormationDef {
+  return { code, label, slots: [keeper(), ...lines.flat()] };
+}
 
 export const FORMATIONS: FormationDef[] = [
-  {
-    code: '4-2-3-1',
-    label: '4-2-3-1',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dd', positionCode: 'DD', label: 'DD', x: 82, y: 75 },
-      { key: 'dcd', positionCode: 'DC', label: 'DCD', x: 62, y: 78 },
-      { key: 'dcg', positionCode: 'DC', label: 'DCG', x: 38, y: 78 },
-      { key: 'dg', positionCode: 'DG', label: 'DG', x: 18, y: 75 },
-      { key: 'mdc1', positionCode: 'MDC', label: 'MDC', x: 38, y: 58 },
-      { key: 'mdc2', positionCode: 'MDC', label: 'MDC', x: 62, y: 58 },
-      { key: 'moc', positionCode: 'MOC', label: 'MOC', x: 50, y: 40 },
-      { key: 'ad', positionCode: 'AD', label: 'AD', x: 80, y: 22 },
-      { key: 'ag', positionCode: 'AG', label: 'AG', x: 20, y: 22 },
-      { key: 'bu', positionCode: 'BU', label: 'BU', x: 50, y: 10 },
-    ],
-  },
-  {
-    code: '4-3-3',
-    label: '4-3-3',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dd', positionCode: 'DD', label: 'DD', x: 82, y: 75 },
-      { key: 'dcd', positionCode: 'DC', label: 'DCD', x: 62, y: 78 },
-      { key: 'dcg', positionCode: 'DC', label: 'DCG', x: 38, y: 78 },
-      { key: 'dg', positionCode: 'DG', label: 'DG', x: 18, y: 75 },
-      { key: 'mc1', positionCode: 'MC', label: 'MC', x: 30, y: 52 },
-      { key: 'mc2', positionCode: 'MC', label: 'MC', x: 50, y: 58 },
-      { key: 'mc3', positionCode: 'MC', label: 'MC', x: 70, y: 52 },
-      { key: 'ad', positionCode: 'AD', label: 'AD', x: 80, y: 20 },
-      { key: 'ag', positionCode: 'AG', label: 'AG', x: 20, y: 20 },
-      { key: 'bu', positionCode: 'BU', label: 'BU', x: 50, y: 12 },
-    ],
-  },
-  {
-    code: '4-4-2',
-    label: '4-4-2',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dd', positionCode: 'DD', label: 'DD', x: 82, y: 75 },
-      { key: 'dcd', positionCode: 'DC', label: 'DCD', x: 62, y: 78 },
-      { key: 'dcg', positionCode: 'DC', label: 'DCG', x: 38, y: 78 },
-      { key: 'dg', positionCode: 'DG', label: 'DG', x: 18, y: 75 },
-      { key: 'md', positionCode: 'MD', label: 'MD', x: 82, y: 45 },
-      { key: 'mc1', positionCode: 'MC', label: 'MC', x: 38, y: 48 },
-      { key: 'mc2', positionCode: 'MC', label: 'MC', x: 62, y: 48 },
-      { key: 'mg', positionCode: 'MG', label: 'MG', x: 18, y: 45 },
-      { key: 'bu1', positionCode: 'BU', label: 'BU', x: 40, y: 15 },
-      { key: 'bu2', positionCode: 'BU', label: 'BU', x: 60, y: 15 },
-    ],
-  },
-  {
-    code: '4-1-2-1-2',
-    label: '4-1-2-1-2 (losange)',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dd', positionCode: 'DD', label: 'DD', x: 82, y: 75 },
-      { key: 'dcd', positionCode: 'DC', label: 'DCD', x: 62, y: 78 },
-      { key: 'dcg', positionCode: 'DC', label: 'DCG', x: 38, y: 78 },
-      { key: 'dg', positionCode: 'DG', label: 'DG', x: 18, y: 75 },
-      { key: 'mdc', positionCode: 'MDC', label: 'MDC', x: 50, y: 62 },
-      { key: 'mc1', positionCode: 'MC', label: 'MC', x: 30, y: 45 },
-      { key: 'mc2', positionCode: 'MC', label: 'MC', x: 70, y: 45 },
-      { key: 'moc', positionCode: 'MOC', label: 'MOC', x: 50, y: 30 },
-      { key: 'bu1', positionCode: 'BU', label: 'BU', x: 38, y: 12 },
-      { key: 'bu2', positionCode: 'BU', label: 'BU', x: 62, y: 12 },
-    ],
-  },
-  {
-    code: '3-5-2',
-    label: '3-5-2',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dc1', positionCode: 'DC', label: 'DC', x: 70, y: 78 },
-      { key: 'dc2', positionCode: 'DC', label: 'DC', x: 50, y: 82 },
-      { key: 'dc3', positionCode: 'DC', label: 'DC', x: 30, y: 78 },
-      { key: 'md', positionCode: 'MD', label: 'MD', x: 88, y: 50 },
-      { key: 'mdc1', positionCode: 'MDC', label: 'MDC', x: 38, y: 55 },
-      { key: 'mdc2', positionCode: 'MDC', label: 'MDC', x: 62, y: 55 },
-      { key: 'mg', positionCode: 'MG', label: 'MG', x: 12, y: 50 },
-      { key: 'moc', positionCode: 'MOC', label: 'MOC', x: 50, y: 35 },
-      { key: 'bu1', positionCode: 'BU', label: 'BU', x: 38, y: 12 },
-      { key: 'bu2', positionCode: 'BU', label: 'BU', x: 62, y: 12 },
-    ],
-  },
-  {
-    code: '3-4-3',
-    label: '3-4-3',
-    slots: [
-      { key: 'g', positionCode: 'G', label: 'G', x: 50, y: 92 },
-      { key: 'dc1', positionCode: 'DC', label: 'DC', x: 70, y: 78 },
-      { key: 'dc2', positionCode: 'DC', label: 'DC', x: 50, y: 82 },
-      { key: 'dc3', positionCode: 'DC', label: 'DC', x: 30, y: 78 },
-      { key: 'md', positionCode: 'MD', label: 'MD', x: 85, y: 48 },
-      { key: 'mc1', positionCode: 'MC', label: 'MC', x: 38, y: 50 },
-      { key: 'mc2', positionCode: 'MC', label: 'MC', x: 62, y: 50 },
-      { key: 'mg', positionCode: 'MG', label: 'MG', x: 15, y: 48 },
-      { key: 'ad', positionCode: 'AD', label: 'AD', x: 80, y: 20 },
-      { key: 'ag', positionCode: 'AG', label: 'AG', x: 20, y: 20 },
-      { key: 'bu', positionCode: 'BU', label: 'BU', x: 50, y: 12 },
-    ],
-  },
+  build('4-4-2', '4-4-2', [
+    line(78, back4()),
+    line(48, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(14, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('4-4-1-1', '4-4-1-1', [
+    line(78, back4()),
+    line(50, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(30, [{ code: 'MOC' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('4-3-3', '4-3-3', [
+    line(78, back4()),
+    line(52, [{ code: 'MC' }, { code: 'MC' }, { code: 'MC' }]),
+    line(18, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
+  build('4-2-3-1', '4-2-3-1', [
+    line(78, back4()),
+    line(60, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(34, [{ code: 'AG' }, { code: 'MOC' }, { code: 'AD' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('4-2-3-1-wide', '4-2-3-1 (large)', [
+    line(78, back4()),
+    line(60, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(34, [{ code: 'MG' }, { code: 'MOC' }, { code: 'MD' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('4-1-2-1-2', '4-1-2-1-2 (losange)', [
+    line(78, back4()),
+    line(62, [{ code: 'MDC' }]),
+    line(46, [{ code: 'MC' }, { code: 'MC' }]),
+    line(30, [{ code: 'MOC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('4-1-2-1-2-wide', '4-1-2-1-2 (large)', [
+    line(78, back4()),
+    line(62, [{ code: 'MDC' }]),
+    line(46, [{ code: 'MG' }, { code: 'MD' }]),
+    line(30, [{ code: 'MOC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('4-1-3-2', '4-1-3-2', [
+    line(78, back4()),
+    line(62, [{ code: 'MDC' }]),
+    line(42, [{ code: 'MG' }, { code: 'MC' }, { code: 'MD' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('4-1-4-1', '4-1-4-1', [
+    line(78, back4()),
+    line(62, [{ code: 'MDC' }]),
+    line(42, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('4-2-2-2', '4-2-2-2', [
+    line(78, back4()),
+    line(60, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(34, [{ code: 'MOC' }, { code: 'MOC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('4-5-1', '4-5-1', [
+    line(78, back4()),
+    line(48, [
+      { code: 'MD' },
+      { code: 'MC' },
+      { code: 'MC' },
+      { code: 'MC' },
+      { code: 'MG' },
+    ]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('4-5-1-attaque', '4-5-1 (attaque)', [
+    line(78, back4()),
+    line(46, [{ code: 'MC' }, { code: 'MC' }, { code: 'MC' }]),
+    line(26, [{ code: 'AG' }, { code: 'AD' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('5-2-1-2', '5-2-1-2', [
+    line(80, back5()),
+    line(58, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(32, [{ code: 'MOC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('5-2-3', '5-2-3', [
+    line(80, back5()),
+    line(56, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(18, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
+  build('5-3-2', '5-3-2', [
+    line(80, back5()),
+    line(52, [{ code: 'MC' }, { code: 'MC' }, { code: 'MC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('5-4-1', '5-4-1', [
+    line(80, back5()),
+    line(50, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('3-4-3', '3-4-3', [
+    line(78, back3()),
+    line(50, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(18, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
+  build('3-4-1-2', '3-4-1-2', [
+    line(78, back3()),
+    line(52, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(30, [{ code: 'MOC' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('3-4-2-1', '3-4-2-1', [
+    line(78, back3()),
+    line(52, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(30, [{ code: 'MOC' }, { code: 'MOC' }]),
+    line(12, [{ code: 'BU' }]),
+  ]),
+  build('3-5-2', '3-5-2', [
+    line(78, back3()),
+    line(52, [
+      { code: 'MD' },
+      { code: 'MDC' },
+      { code: 'MC' },
+      { code: 'MDC' },
+      { code: 'MG' },
+    ]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
+  build('3-1-4-2', '3-1-4-2', [
+    line(78, back3()),
+    line(62, [{ code: 'MDC' }]),
+    line(44, [{ code: 'MD' }, { code: 'MC' }, { code: 'MC' }, { code: 'MG' }]),
+    line(12, [{ code: 'BU' }, { code: 'BU' }]),
+  ]),
 ];
 
 export function getFormation(code: string): FormationDef {

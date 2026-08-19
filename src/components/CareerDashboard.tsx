@@ -34,40 +34,26 @@ export function CareerDashboard() {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-white">Career Planner ⚽</h1>
-        <p className="mt-1 text-sm text-gray-400">
-          Organise ton mode carrière FIFA / EA FC : effectif, terrain, transferts.
-        </p>
-      </div>
+    <div className="mx-auto flex max-w-xl flex-col gap-6 px-4 py-10">
+      <h1 className="text-lg font-medium text-white">Career Planner</h1>
 
       {state.careers.length > 0 && (
         <div className="flex flex-col gap-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            Tes carrières
-          </h2>
-          <ul className="flex flex-col gap-2">
+          <h2 className="text-xs uppercase tracking-wide text-gray-500">Tes carrières</h2>
+          <ul className="flex flex-col divide-y divide-white/10 border border-white/10">
             {state.careers.map((c) => (
-              <li
-                key={c.id}
-                className="flex items-center justify-between rounded-lg border border-white/10 bg-[#12141c] px-4 py-3"
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveCareer(c.id)}
-                  className="text-left"
-                >
-                  <div className="font-medium text-white">{c.name}</div>
+              <li key={c.id} className="flex items-center justify-between px-3 py-2">
+                <button type="button" onClick={() => setActiveCareer(c.id)} className="text-left">
+                  <div className="text-sm text-white">{c.name}</div>
                   <div className="text-xs text-gray-500">
                     {c.club} · saison {c.season}
                   </div>
                 </button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => setActiveCareer(c.id)}
-                    className="rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-semibold text-emerald-950 hover:bg-emerald-400"
+                    className="text-xs text-gray-300 hover:text-white"
                   >
                     Ouvrir
                   </button>
@@ -78,10 +64,10 @@ export function CareerDashboard() {
                         deleteCareer(c.id);
                       }
                     }}
-                    className="rounded-md p-1.5 text-gray-500 hover:bg-red-500/10 hover:text-red-400"
+                    className="text-xs text-gray-600 hover:text-red-400"
                     title="Supprimer"
                   >
-                    🗑
+                    Supprimer
                   </button>
                 </div>
               </li>
@@ -90,48 +76,43 @@ export function CareerDashboard() {
         </div>
       )}
 
-      <form
-        onSubmit={handleCreate}
-        className="flex flex-col gap-3 rounded-lg border border-white/10 bg-[#12141c] p-4"
-      >
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-          Nouvelle carrière
-        </h2>
+      <form onSubmit={handleCreate} className="flex flex-col gap-3 border border-white/10 p-4">
+        <h2 className="text-xs uppercase tracking-wide text-gray-500">Nouvelle carrière</h2>
         <div className="grid grid-cols-2 gap-3">
           <input
             value={club}
             onChange={(e) => setClub(e.target.value)}
             placeholder="Club (ex: PSG)"
-            className="rounded-md border border-white/10 bg-black/30 px-2 py-1.5 text-sm text-white outline-none focus:border-emerald-400"
+            className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
             required
           />
           <input
             value={season}
             onChange={(e) => setSeason(e.target.value)}
             placeholder="Saison (ex: 2026/2027)"
-            className="rounded-md border border-white/10 bg-black/30 px-2 py-1.5 text-sm text-white outline-none focus:border-emerald-400"
+            className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
           />
         </div>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Nom de la carrière (optionnel)"
-          className="rounded-md border border-white/10 bg-black/30 px-2 py-1.5 text-sm text-white outline-none focus:border-emerald-400"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
         />
         <button
           type="submit"
-          className="self-start rounded-md bg-emerald-500 px-4 py-1.5 text-sm font-semibold text-emerald-950 hover:bg-emerald-400"
+          className="self-start rounded bg-white px-4 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
         >
           Créer la carrière
         </button>
       </form>
 
-      <div className="flex items-center justify-center gap-3 text-xs text-gray-500">
+      <div className="flex items-center gap-3 text-xs text-gray-500">
         <span>Tu as une sauvegarde JSON ?</span>
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="rounded-md border border-white/10 px-3 py-1 text-gray-300 hover:bg-white/5"
+          className="rounded border border-white/10 px-3 py-1 text-gray-300 hover:bg-white/5"
         >
           Importer
         </button>

@@ -14,7 +14,7 @@ export function PitchView() {
   const titulairesByPosition = useMemo(() => {
     const map = new Map<string, Player[]>();
     for (const p of careerPlayers) {
-      if (p.status !== 'squad' || p.depthCategory !== 'titulaire') continue;
+      if (p.depthCategory !== 'titulaire') continue;
       const list = map.get(p.positionCode) ?? [];
       list.push(p);
       map.set(p.positionCode, sortByDepthOrder(list));
@@ -41,7 +41,7 @@ export function PitchView() {
             activeCareer &&
             updateCareer(activeCareer.id, { formation: e.target.value as FormationCode })
           }
-          className="rounded-md border border-white/10 bg-black/30 px-2 py-1.5 text-sm text-white outline-none focus:border-emerald-400"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
         >
           {FORMATIONS.map((f) => (
             <option key={f.code} value={f.code}>
@@ -52,18 +52,15 @@ export function PitchView() {
       </div>
 
       <div
-        className="relative mx-auto aspect-[2/3] w-full max-w-md overflow-hidden rounded-2xl border border-white/10 shadow-inner"
-        style={{
-          background:
-            'repeating-linear-gradient(180deg, #16652f 0, #16652f 10%, #146029 10%, #146029 20%)',
-        }}
+        className="relative mx-auto aspect-[2/3] w-full max-w-md overflow-hidden border border-white/10"
+        style={{ background: '#1e5631' }}
       >
-        <div className="absolute inset-3 rounded-lg border-2 border-white/25" />
-        <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/25" />
-        <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40" />
-        <div className="absolute left-1/2 top-3 h-px w-[calc(100%-1.5rem)] -translate-x-1/2 bg-white/25" />
-        <div className="absolute left-1/2 top-3 h-16 w-40 -translate-x-1/2 border-2 border-t-0 border-white/25" />
-        <div className="absolute left-1/2 bottom-3 h-16 w-40 -translate-x-1/2 border-2 border-b-0 border-white/25" />
+        <div className="absolute inset-3 border border-white/20" />
+        <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20" />
+        <div className="absolute left-1/2 top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/30" />
+        <div className="absolute left-1/2 top-3 h-px w-[calc(100%-1.5rem)] -translate-x-1/2 bg-white/20" />
+        <div className="absolute left-1/2 top-3 h-16 w-40 -translate-x-1/2 border border-t-0 border-white/20" />
+        <div className="absolute left-1/2 bottom-3 h-16 w-40 -translate-x-1/2 border border-b-0 border-white/20" />
 
         {formation.slots.map((slot) => {
           const player = nextPlayerFor(slot.positionCode);
@@ -77,16 +74,16 @@ export function PitchView() {
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
             >
               <div
-                className="flex h-9 w-9 items-center justify-center rounded-full border-2 text-[11px] font-bold text-white shadow-md"
+                className="flex h-8 w-8 items-center justify-center rounded-full border text-[11px] text-white"
                 style={{
-                  background: tier ? tier.color : player ? '#4b5568' : 'rgba(255,255,255,0.08)',
-                  borderColor: player ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.25)',
+                  background: tier ? tier.color : player ? '#3f4657' : 'rgba(255,255,255,0.08)',
+                  borderColor: 'rgba(255,255,255,0.4)',
                   color: tier ? tier.textColor : '#fff',
                 }}
               >
                 {player?.rating ?? slot.label}
               </div>
-              <span className="max-w-[72px] truncate rounded bg-black/60 px-1 text-[10px] font-medium text-white">
+              <span className="max-w-[72px] truncate bg-black/50 px-1 text-[10px] text-white">
                 {player?.name ?? slot.label}
               </span>
             </button>

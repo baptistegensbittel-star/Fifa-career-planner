@@ -19,8 +19,8 @@ export function SquadCell({ positionCode, depthCategory, players, onEdit, onAdd 
   return (
     <div
       ref={setNodeRef}
-      className={`flex min-h-[52px] flex-col gap-1 rounded-lg border border-dashed p-1.5 transition-colors ${
-        isOver ? 'border-emerald-400 bg-emerald-400/10' : 'border-white/10 bg-white/[0.02]'
+      className={`flex min-h-[48px] flex-col gap-1 border border-dashed p-1 transition-colors ${
+        isOver ? 'border-white/40 bg-white/[0.06]' : 'border-white/10'
       }`}
     >
       <SortableContext items={players.map((p) => p.id)} strategy={verticalListSortingStrategy}>
@@ -31,7 +31,7 @@ export function SquadCell({ positionCode, depthCategory, players, onEdit, onAdd 
       <button
         type="button"
         onClick={() => onAdd(positionCode, depthCategory)}
-        className="rounded-md border border-transparent px-2 py-1 text-left text-[11px] text-gray-500 hover:border-white/10 hover:bg-white/5 hover:text-gray-300"
+        className="px-2 py-1 text-left text-[11px] text-gray-600 hover:text-gray-300"
       >
         + Ajouter
       </button>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -27,7 +27,6 @@ function buildColumns(players: Player[]): Columns {
     }
   }
   for (const p of players) {
-    if (p.status !== 'squad' || !p.depthCategory) continue;
     const id = cellId(p.positionCode, p.depthCategory);
     if (cols[id]) cols[id].push(p);
   }
@@ -47,11 +46,7 @@ function findContainer(columns: Columns, id: string): string | null {
 
 export function SquadBoard() {
   const { careerPlayers, updatePlayer, reorderDepth } = useStore();
-
-  const squadPlayers = useMemo(
-    () => careerPlayers.filter((p) => p.status === 'squad'),
-    [careerPlayers],
-  );
+  const squadPlayers = careerPlayers;
 
   const [columns, setColumns] = useState<Columns>(() => buildColumns(squadPlayers));
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -162,7 +157,7 @@ export function SquadBoard() {
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#12141c]">
+    <div className="overflow-x-auto rounded border border-white/10 bg-[#12141c]">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -223,7 +218,6 @@ export function SquadBoard() {
           initial={{
             positionCode: modal.positionCode,
             depthCategory: modal.depthCategory,
-            status: 'squad',
           }}
           onClose={() => setModal(null)}
         />

@@ -5,7 +5,6 @@ import { TopBar } from './components/TopBar';
 import type { Tab } from './components/TopBar';
 import { SquadBoard } from './components/SquadBoard';
 import { PitchView } from './components/PitchView';
-import { TransfersView } from './components/TransfersView';
 
 function AppShell() {
   const { activeCareer } = useStore();
@@ -19,7 +18,6 @@ function AppShell() {
       <main className="mx-auto max-w-6xl px-4 py-5">
         {tab === 'squad' && <SquadBoard />}
         {tab === 'pitch' && <PitchView />}
-        {tab === 'transfers' && <TransfersView />}
       </main>
     </div>
   );
