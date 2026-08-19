@@ -171,7 +171,7 @@ export function SquadBoard() {
           Importer un club
         </button>
       </div>
-      <div className="overflow-x-auto rounded border border-white/10 bg-[#12141c]">
+      <div className="overflow-x-auto rounded border border-white/10 bg-[#141a29]">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

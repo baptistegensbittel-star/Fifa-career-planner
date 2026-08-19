@@ -11,14 +11,14 @@ html, body, #root {
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  background: #0d0f14;
-  color: #e5e7eb;
+  background: #0d1220;
+  color: #e6ebf7;
 }
 
 select,
 select option {
-  background-color: #1a1d27;
-  color: #e5e7eb;
+  background-color: #1b2338;
+  color: #e6ebf7;
 }
 
 ::-webkit-scrollbar {
@@ -29,9 +29,9 @@ select option {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a3142;
+  background: #26314d;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a4358;
+  background: #344264;
 }

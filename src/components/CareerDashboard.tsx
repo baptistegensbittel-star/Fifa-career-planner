@@ -125,11 +125,11 @@ export function CareerDashboard() {
               onBlur={() => setTimeout(() => setClubSuggestionsOpen(false), 150)}
               autoComplete="off"
               placeholder="Club (ex: Real Madrid)"
-              className="w-full rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               required
             />
             {clubSuggestions.length > 0 && (
-              <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-56 overflow-y-auto rounded border border-white/10 bg-[#1a1d27] shadow-lg">
+              <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-56 overflow-y-auto rounded border border-white/10 bg-[#1b2338] shadow-lg">
                 {clubSuggestions.map((c) => (
                   <li key={`${c.club}|${c.league}`}>
                     <button
@@ -157,18 +157,18 @@ export function CareerDashboard() {
             value={season}
             onChange={(e) => setSeason(e.target.value)}
             placeholder="Saison (ex: 2026/2027)"
-            className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+            className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
           />
         </div>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Nom de la carrière (optionnel)"
-          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
         />
         <button
           type="submit"
-          className="self-start rounded bg-white px-4 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
+          className="self-start rounded bg-[#5b8cff] px-4 py-1.5 text-sm font-medium text-[#08101f] hover:bg-[#74a0ff]"
         >
           Créer la carrière
         </button>

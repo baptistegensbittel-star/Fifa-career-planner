@@ -47,7 +47,7 @@ export function PitchView() {
             activeCareer &&
             updateCareer(activeCareer.id, { formation: e.target.value as FormationCode })
           }
-          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
         >
           {FORMATIONS.map((f) => (
             <option key={f.code} value={f.code}>

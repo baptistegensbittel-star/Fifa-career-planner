@@ -46,7 +46,7 @@ export function TopBar({ tab, onTabChange }: Props) {
   ];
 
   return (
-    <div className="sticky top-0 z-40 border-b border-white/10 bg-[#0d0f14]">
+    <div className="sticky top-0 z-40 border-b border-white/10 bg-[#0d1220]">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
         <button
           type="button"
@@ -60,7 +60,7 @@ export function TopBar({ tab, onTabChange }: Props) {
         <select
           value={activeCareer.id}
           onChange={(e) => setActiveCareer(e.target.value)}
-          className="rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-white/30"
+          className="rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-[#5b8cff]/60"
         >
           {state.careers.map((c: Career) => (
             <option key={c.id} value={c.id}>
@@ -80,7 +80,7 @@ export function TopBar({ tab, onTabChange }: Props) {
             onKeyDown={(e) => {
               if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
             }}
-            className="w-24 rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-white/30"
+            className="w-24 rounded border border-white/10 bg-black/20 px-2 py-1 text-xs text-white outline-none focus:border-[#5b8cff]/60"
           />
         ) : (
           <button
@@ -101,7 +101,7 @@ export function TopBar({ tab, onTabChange }: Props) {
               onClick={() => onTabChange(t.id)}
               className={`border-b-2 pb-0.5 text-sm transition-colors ${
                 tab === t.id
-                  ? 'border-white text-white'
+                  ? 'border-[#5b8cff] text-white'
                   : 'border-transparent text-gray-500 hover:text-gray-300'
               }`}
             >

@@ -52,7 +52,7 @@ export function HonorsView() {
               value={activeCareer.position}
               onChange={(e) => updateCareer(activeCareer.id, { position: e.target.value })}
               placeholder="ex: 1er, 3ème, Relégué..."
-              className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+              className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
             />
           </label>
 
@@ -86,7 +86,7 @@ export function HonorsView() {
                   }
                 }}
                 placeholder="ex: Coupe de France"
-                className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+                className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               />
               <button
                 type="button"
@@ -127,7 +127,7 @@ export function HonorsView() {
             <button
               type="button"
               onClick={() => setConfirmingNewSeason(true)}
-              className="rounded bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
+              className="rounded bg-[#5b8cff] px-3 py-1.5 text-sm font-medium text-[#08101f] hover:bg-[#74a0ff]"
             >
               Nouvelle saison
             </button>

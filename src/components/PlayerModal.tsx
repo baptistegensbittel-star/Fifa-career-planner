@@ -76,7 +76,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="w-full max-w-sm rounded-lg border border-white/10 bg-[#14161d] p-5"
+        className="w-full max-w-sm rounded-lg border border-white/10 bg-[#141a29] p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
@@ -105,12 +105,12 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               onFocus={() => setSuggestionsOpen(true)}
               onBlur={() => setTimeout(() => setSuggestionsOpen(false), 150)}
               autoComplete="off"
-              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               placeholder="Nom du joueur"
               required
             />
             {suggestions.length > 0 && (
-              <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded border border-white/10 bg-[#1a1d27] shadow-lg">
+              <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded border border-white/10 bg-[#1b2338] shadow-lg">
                 {suggestions.map((p) => (
                   <li key={`${p.name}|${p.club}`}>
                     <button
@@ -134,7 +134,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               <select
                 value={positionCode}
                 onChange={(e) => setPositionCode(e.target.value as PositionCode)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               >
                 {POSITIONS.map((p) => (
                   <option key={p.code} value={p.code}>
@@ -149,7 +149,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               <select
                 value={depthCategory}
                 onChange={(e) => setDepthCategory(e.target.value as DepthCategory)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               >
                 {DEPTH_CATEGORIES.map((d) => (
                   <option key={d.code} value={d.code}>
@@ -164,7 +164,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
               <select
                 value={tier}
                 onChange={(e) => setTier(e.target.value as Tier)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               >
                 <option value="">—</option>
                 {TIERS.map((t) => (
@@ -183,7 +183,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 max={99}
                 value={rating}
                 onChange={(e) => setRating(e.target.value)}
-                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+                className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
               />
             </label>
           </div>
@@ -231,7 +231,7 @@ export function PlayerModal({ player, initial, onClose }: Props) {
                 </button>
                 <button
                   type="submit"
-                  className="rounded bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
+                  className="rounded bg-[#5b8cff] px-3 py-1.5 text-sm font-medium text-[#08101f] hover:bg-[#74a0ff]"
                 >
                   Enregistrer
                 </button>

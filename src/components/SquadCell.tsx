@@ -20,7 +20,7 @@ export function SquadCell({ positionCode, depthCategory, players, onEdit, onAdd 
     <div
       ref={setNodeRef}
       className={`flex min-h-[48px] flex-col gap-1 border border-dashed p-1 transition-colors ${
-        isOver ? 'border-white/40 bg-white/[0.06]' : 'border-white/10'
+        isOver ? 'border-[#5b8cff]/60 bg-[#5b8cff]/10' : 'border-white/10'
       }`}
     >
       <SortableContext items={players.map((p) => p.id)} strategy={verticalListSortingStrategy}>

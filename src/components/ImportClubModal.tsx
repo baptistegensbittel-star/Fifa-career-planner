@@ -43,7 +43,7 @@ export function ImportClubModal({ onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
-        className="flex max-h-[80vh] w-full max-w-sm flex-col rounded-lg border border-white/10 bg-[#14161d] p-5"
+        className="flex max-h-[80vh] w-full max-w-sm flex-col rounded-lg border border-white/10 bg-[#141a29] p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
@@ -66,7 +66,7 @@ export function ImportClubModal({ onClose }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="self-start rounded bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
+              className="self-start rounded bg-[#5b8cff] px-3 py-1.5 text-sm font-medium text-[#08101f] hover:bg-[#74a0ff]"
             >
               Fermer
             </button>
@@ -84,7 +84,7 @@ export function ImportClubModal({ onClose }: Props) {
               }}
               placeholder={clubs ? 'Chercher un club...' : 'Chargement...'}
               disabled={!clubs}
-              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-white/30"
+              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-sm text-white outline-none focus:border-[#5b8cff]/60"
             />
 
             {selected ? (
@@ -106,7 +106,7 @@ export function ImportClubModal({ onClose }: Props) {
                   <button
                     type="button"
                     onClick={handleImport}
-                    className="rounded bg-white px-3 py-1.5 text-sm font-medium text-black hover:bg-gray-200"
+                    className="rounded bg-[#5b8cff] px-3 py-1.5 text-sm font-medium text-[#08101f] hover:bg-[#74a0ff]"
                   >
                     Importer {selected.players.length} joueurs
                   </button>
