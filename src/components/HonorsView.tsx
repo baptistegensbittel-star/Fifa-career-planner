@@ -42,27 +42,27 @@ export function HonorsView() {
   return (
     <div className="flex flex-col gap-6">
       <div className="border border-white/10 p-4">
-        <h2 className="text-[28px] uppercase tracking-wide text-gray-400">
+        <h2 className="text-lg uppercase tracking-wide text-gray-400">
           Saison en cours · {activeCareer.season}
         </h2>
 
         <div className="mt-3 flex flex-col gap-3">
-          <label className="flex flex-col gap-1 text-[28px] text-gray-400">
+          <label className="flex flex-col gap-1 text-lg text-gray-400">
             Classement en championnat
             <input
               value={activeCareer.position}
               onChange={(e) => updateCareer(activeCareer.id, { position: e.target.value })}
               placeholder="ex: 1er, 3ème, Relégué..."
-              className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
+              className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
             />
           </label>
 
-          <div className="flex flex-col gap-1 text-[28px] text-gray-400">
+          <div className="flex flex-col gap-1 text-lg text-gray-400">
             Trophées remportés
             {activeCareer.trophies.length > 0 && (
               <ul className="mb-1 flex flex-col divide-y divide-white/5 border border-white/10">
                 {activeCareer.trophies.map((t, i) => (
-                  <li key={`${t}-${i}`} className="flex items-center justify-between px-2 py-1.5 text-3xl text-gray-200">
+                  <li key={`${t}-${i}`} className="flex items-center justify-between px-2 py-1.5 text-xl text-gray-200">
                     {t}
                     <button
                       type="button"
@@ -87,12 +87,12 @@ export function HonorsView() {
                   }
                 }}
                 placeholder="ex: Coupe de France"
-                className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-3xl text-white outline-none focus:border-[#5b8cff]/60"
+                className="w-full max-w-xs rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
               />
               <button
                 type="button"
                 onClick={addTrophy}
-                className="rounded border border-white/10 px-3 py-1.5 text-3xl text-gray-300 hover:bg-white/5"
+                className="rounded border border-white/10 px-3 py-1.5 text-xl text-gray-300 hover:bg-white/5"
               >
                 Ajouter
               </button>
@@ -103,7 +103,7 @@ export function HonorsView() {
         <div className="mt-4 border-t border-white/10 pt-3">
           {confirmingNewSeason ? (
             <div className="flex flex-wrap items-center justify-between gap-2 rounded border border-white/20 bg-white/5 px-3 py-2">
-              <span className="text-3xl text-gray-300">
+              <span className="text-xl text-gray-300">
                 Archiver la saison {activeCareer.season} et passer à {nextSeasonLabel} ?
                 L'effectif reste identique.
               </span>
@@ -111,14 +111,14 @@ export function HonorsView() {
                 <button
                   type="button"
                   onClick={() => setConfirmingNewSeason(false)}
-                  className="text-3xl text-gray-400 hover:underline"
+                  className="text-xl text-gray-400 hover:underline"
                 >
                   Annuler
                 </button>
                 <button
                   type="button"
                   onClick={handleNewSeason}
-                  className="text-3xl font-medium text-white hover:underline"
+                  className="text-xl font-medium text-white hover:underline"
                 >
                   Confirmer
                 </button>
@@ -128,7 +128,7 @@ export function HonorsView() {
             <button
               type="button"
               onClick={() => setConfirmingNewSeason(true)}
-              className="rounded bg-[#5b8cff] px-3 py-1.5 text-3xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
+              className="rounded bg-[#5b8cff] px-3 py-1.5 text-xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
             >
               Nouvelle saison
             </button>
@@ -137,37 +137,37 @@ export function HonorsView() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <h2 className="text-[28px] uppercase tracking-wide text-gray-400">Historique</h2>
+        <h2 className="text-lg uppercase tracking-wide text-gray-400">Historique</h2>
         {activeCareer.seasonHistory.length === 0 ? (
-          <p className="text-3xl text-gray-400">Aucune saison archivée pour l'instant.</p>
+          <p className="text-xl text-gray-400">Aucune saison archivée pour l'instant.</p>
         ) : (
           <ul className="flex flex-col gap-2">
             {[...activeCareer.seasonHistory].reverse().map((s) => (
               <li key={s.id} className="border border-white/10 p-3">
                 <div className="flex items-start justify-between">
-                  <div className="text-3xl font-medium text-white">{s.season}</div>
+                  <div className="text-xl font-medium text-white">{s.season}</div>
                   <button
                     type="button"
                     onClick={() => deleteHistoryEntry(s.id)}
-                    className="text-[28px] text-gray-400 hover:text-red-400"
+                    className="text-lg text-gray-400 hover:text-red-400"
                   >
                     Supprimer
                   </button>
                 </div>
-                {s.position && <div className="mt-0.5 text-[28px] text-gray-400">{s.position}</div>}
+                {s.position && <div className="mt-0.5 text-lg text-gray-400">{s.position}</div>}
                 {s.trophies.length > 0 ? (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {s.trophies.map((t, i) => (
                       <span
                         key={`${t}-${i}`}
-                        className="rounded bg-white/5 px-2 py-0.5 text-[28px] text-gray-300"
+                        className="rounded bg-white/5 px-2 py-0.5 text-lg text-gray-300"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
                 ) : (
-                  <div className="mt-2 text-[28px] text-gray-400">Aucun trophée noté.</div>
+                  <div className="mt-2 text-lg text-gray-400">Aucun trophée noté.</div>
                 )}
               </li>
             ))}

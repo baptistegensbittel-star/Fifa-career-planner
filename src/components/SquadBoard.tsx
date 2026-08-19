@@ -166,7 +166,7 @@ export function SquadBoard() {
         <button
           type="button"
           onClick={() => setImportOpen(true)}
-          className="rounded border border-white/10 px-3 py-1.5 text-[28px] text-gray-300 hover:bg-white/5"
+          className="rounded border border-white/10 px-3 py-1.5 text-lg text-gray-300 hover:bg-white/5"
         >
           Importer un club
         </button>
@@ -179,9 +179,9 @@ export function SquadBoard() {
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <table className="w-full min-w-[720px] border-collapse text-3xl">
+        <table className="w-full min-w-[720px] border-collapse text-xl">
           <thead>
-            <tr className="border-b border-white/10 bg-white/[0.03] text-left text-[28px] uppercase tracking-wide text-gray-400">
+            <tr className="border-b border-white/10 bg-white/[0.03] text-left text-lg uppercase tracking-wide text-gray-400">
               <th className="w-24 px-3 py-2 font-medium">Poste</th>
               {DEPTH_CATEGORIES.map((d) => (
                 <th key={d.code} className="px-3 py-2 font-medium">
@@ -193,9 +193,9 @@ export function SquadBoard() {
           <tbody>
             {POSITIONS.map((pos) => (
               <tr key={pos.code} className="border-b border-white/5 align-top last:border-0">
-                <td className="px-3 py-2 text-[28px] font-semibold text-gray-300">
+                <td className="px-3 py-2 text-lg font-semibold text-gray-300">
                   <div>{pos.code}</div>
-                  <div className="text-[26px] font-normal text-gray-400">{pos.label}</div>
+                  <div className="text-base font-normal text-gray-400">{pos.label}</div>
                 </td>
                 {DEPTH_CATEGORIES.map((d) => (
                   <td key={d.code} className="px-2 py-2">

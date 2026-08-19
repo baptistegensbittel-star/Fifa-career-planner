@@ -31,7 +31,7 @@ export function PlayerChip({ player, onEdit, compact }: Props) {
         e.stopPropagation();
         onEdit(player);
       }}
-      className={`flex w-full cursor-grab items-center gap-1.5 bg-white/[0.04] px-2 py-1 text-[28px] text-gray-100 active:cursor-grabbing ${
+      className={`flex w-full cursor-grab items-center gap-1.5 bg-white/[0.04] px-2 py-1 text-lg text-gray-100 active:cursor-grabbing ${
         compact ? '' : ''
       }`}
       title="Cliquer pour modifier · glisser pour déplacer"
@@ -42,7 +42,7 @@ export function PlayerChip({ player, onEdit, compact }: Props) {
       />
       <span className="truncate">{player.name || 'Sans nom'}</span>
       {player.rating != null && (
-        <span className="ml-auto shrink-0 text-[26px] tabular-nums text-gray-400">
+        <span className="ml-auto shrink-0 text-base tabular-nums text-gray-400">
           {player.rating}
         </span>
       )}
