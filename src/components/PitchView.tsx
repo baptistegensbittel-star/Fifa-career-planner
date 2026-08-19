@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { FORMATIONS, getFormation } from '../data/formations';
-import type { FormationCode, Player } from '../types/domain';
+import type { FormationCode, Player, PositionCode } from '../types/domain';
 import { useStore } from '../store/store';
 import { sortByDepthOrder, tierDef } from '../utils/helpers';
 import { PlayerModal } from './PlayerModal';
@@ -8,6 +8,7 @@ import { PlayerModal } from './PlayerModal';
 export function PitchView() {
   const { activeCareer, careerPlayers, updateCareer } = useStore();
   const [editing, setEditing] = useState<Player | null>(null);
+  const [addingPosition, setAddingPosition] = useState<PositionCode | null>(null);
 
   const formation = getFormation(activeCareer?.formation ?? '4-2-3-1');
 
@@ -69,9 +70,10 @@ export function PitchView() {
             <button
               key={slot.key}
               type="button"
-              onClick={() => player && setEditing(player)}
-              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5"
+              onClick={() => (player ? setEditing(player) : setAddingPosition(slot.positionCode))}
+              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 hover:opacity-80"
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
+              title={player ? 'Modifier le joueur' : 'Ajouter un titulaire'}
             >
               <div
                 className="flex h-8 w-8 items-center justify-center rounded-full border text-[11px] text-white"
@@ -107,6 +109,13 @@ export function PitchView() {
       </div>
 
       {editing && <PlayerModal player={editing} onClose={() => setEditing(null)} />}
+      {addingPosition && (
+        <PlayerModal
+          player={null}
+          initial={{ positionCode: addingPosition, depthCategory: 'titulaire' }}
+          onClose={() => setAddingPosition(null)}
+        />
+      )}
     </div>
   );
 }
