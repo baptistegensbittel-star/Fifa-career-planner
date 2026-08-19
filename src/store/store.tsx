@@ -25,6 +25,7 @@ type Action =
   | { type: 'DELETE_CAREER'; id: string }
   | { type: 'SET_ACTIVE_CAREER'; id: string | null }
   | { type: 'ADD_PLAYER'; player: Player }
+  | { type: 'ADD_PLAYERS'; players: Player[] }
   | { type: 'UPDATE_PLAYER'; id: string; patch: Partial<Player> }
   | { type: 'DELETE_PLAYER'; id: string }
   | {
@@ -85,6 +86,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, activeCareerId: action.id };
     case 'ADD_PLAYER':
       return { ...state, players: [...state.players, action.player] };
+    case 'ADD_PLAYERS':
+      return { ...state, players: [...state.players, ...action.players] };
     case 'UPDATE_PLAYER':
       return {
         ...state,
@@ -125,6 +128,7 @@ interface StoreApi {
   deleteCareer: (id: string) => void;
   setActiveCareer: (id: string | null) => void;
   addPlayer: (input: Partial<Player> & { name: string; positionCode: PositionCode }) => string;
+  addPlayers: (inputs: Array<Partial<Player> & { name: string; positionCode: PositionCode }>) => void;
   updatePlayer: (id: string, patch: Partial<Player>) => void;
   deletePlayer: (id: string) => void;
   reorderDepth: (
@@ -181,25 +185,40 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_ACTIVE_CAREER', id });
   }, []);
 
+  const buildPlayer = (
+    careerId: string,
+    input: Partial<Player> & { name: string; positionCode: PositionCode },
+  ): Player => {
+    const now = Date.now();
+    return {
+      id: uuidv4(),
+      careerId,
+      name: input.name,
+      positionCode: input.positionCode,
+      depthCategory: input.depthCategory ?? 'titulaire',
+      depthOrder: input.depthOrder ?? 999,
+      tier: input.tier ?? null,
+      rating: input.rating ?? null,
+      createdAt: now,
+      updatedAt: now,
+    };
+  };
+
   const addPlayer = useCallback<StoreApi['addPlayer']>(
     (input) => {
-      const id = uuidv4();
-      const now = Date.now();
-      if (!activeCareer) return id;
-      const player: Player = {
-        id,
-        careerId: activeCareer.id,
-        name: input.name,
-        positionCode: input.positionCode,
-        depthCategory: input.depthCategory ?? 'titulaire',
-        depthOrder: input.depthOrder ?? 999,
-        tier: input.tier ?? null,
-        rating: input.rating ?? null,
-        createdAt: now,
-        updatedAt: now,
-      };
+      if (!activeCareer) return uuidv4();
+      const player = buildPlayer(activeCareer.id, input);
       dispatch({ type: 'ADD_PLAYER', player });
-      return id;
+      return player.id;
+    },
+    [activeCareer],
+  );
+
+  const addPlayers = useCallback<StoreApi['addPlayers']>(
+    (inputs) => {
+      if (!activeCareer || inputs.length === 0) return;
+      const players = inputs.map((input) => buildPlayer(activeCareer.id, input));
+      dispatch({ type: 'ADD_PLAYERS', players });
     },
     [activeCareer],
   );
@@ -254,6 +273,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     deleteCareer,
     setActiveCareer,
     addPlayer,
+    addPlayers,
     updatePlayer,
     deletePlayer,
     reorderDepth,

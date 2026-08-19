@@ -16,6 +16,7 @@ import { cellId, parseCellId, sortByDepthOrder } from '../utils/helpers';
 import { SquadCell } from './SquadCell';
 import { PlayerChip } from './PlayerChip';
 import { PlayerModal } from './PlayerModal';
+import { ImportClubModal } from './ImportClubModal';
 
 type Columns = Record<string, Player[]>;
 
@@ -56,6 +57,7 @@ export function SquadBoard() {
     | { mode: 'add'; positionCode: PositionCode; depthCategory: DepthCategory }
     | null
   >(null);
+  const [importOpen, setImportOpen] = useState(false);
 
   useEffect(() => {
     if (!dragging) setColumns(buildColumns(squadPlayers));
@@ -157,7 +159,17 @@ export function SquadBoard() {
   }
 
   return (
-    <div className="overflow-x-auto rounded border border-white/10 bg-[#12141c]">
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={() => setImportOpen(true)}
+          className="rounded border border-white/10 px-3 py-1.5 text-xs text-gray-300 hover:bg-white/5"
+        >
+          Importer un club
+        </button>
+      </div>
+      <div className="overflow-x-auto rounded border border-white/10 bg-[#12141c]">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -208,6 +220,7 @@ export function SquadBoard() {
           ) : null}
         </DragOverlay>
       </DndContext>
+      </div>
 
       {modal?.mode === 'edit' && (
         <PlayerModal player={modal.player} onClose={() => setModal(null)} />
@@ -222,6 +235,7 @@ export function SquadBoard() {
           onClose={() => setModal(null)}
         />
       )}
+      {importOpen && <ImportClubModal onClose={() => setImportOpen(false)} />}
     </div>
   );
 }
