@@ -48,26 +48,26 @@ export function ImportClubModal({ onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-medium text-white">Importer un club</h2>
+          <h2 className="text-[22px] font-medium text-white">Importer un club</h2>
           <button type="button" onClick={onClose} className="text-gray-400 hover:text-white">
             <CloseIcon />
           </button>
         </div>
 
         {error && (
-          <p className="text-base text-red-400">Impossible de charger la base de clubs.</p>
+          <p className="text-xl text-red-400">Impossible de charger la base de clubs.</p>
         )}
 
         {!error && imported && selected && (
           <div className="flex flex-col gap-3">
-            <p className="text-base text-gray-300">
+            <p className="text-xl text-gray-300">
               {selected.players.length} joueurs de {selected.club} ajoutés en Remplaçant. Tu peux
               maintenant les répartir et régler les tiers dans le tableau.
             </p>
             <button
               type="button"
               onClick={onClose}
-              className="self-start rounded bg-[#5b8cff] px-3 py-1.5 text-base font-medium text-[#08101f] hover:bg-[#74a0ff]"
+              className="self-start rounded bg-[#5b8cff] px-3 py-1.5 text-xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
             >
               Fermer
             </button>
@@ -85,14 +85,14 @@ export function ImportClubModal({ onClose }: Props) {
               }}
               placeholder={clubs ? 'Chercher un club...' : 'Chargement...'}
               disabled={!clubs}
-              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-base text-white outline-none focus:border-[#5b8cff]/60"
+              className="rounded border border-white/10 bg-black/20 px-2 py-1.5 text-xl text-white outline-none focus:border-[#5b8cff]/60"
             />
 
             {selected ? (
               <div className="mt-3 flex flex-col gap-3">
                 <div className="rounded border border-white/10 p-3">
-                  <div className="text-base text-white">{selected.club}</div>
-                  <div className="text-sm text-gray-400">
+                  <div className="text-xl text-white">{selected.club}</div>
+                  <div className="text-lg text-gray-400">
                     {selected.league} · {selected.players.length} joueurs
                   </div>
                 </div>
@@ -100,14 +100,14 @@ export function ImportClubModal({ onClose }: Props) {
                   <button
                     type="button"
                     onClick={() => setSelected(null)}
-                    className="rounded px-3 py-1.5 text-base text-gray-300 hover:bg-white/5"
+                    className="rounded px-3 py-1.5 text-xl text-gray-300 hover:bg-white/5"
                   >
                     Changer
                   </button>
                   <button
                     type="button"
                     onClick={handleImport}
-                    className="rounded bg-[#5b8cff] px-3 py-1.5 text-base font-medium text-[#08101f] hover:bg-[#74a0ff]"
+                    className="rounded bg-[#5b8cff] px-3 py-1.5 text-xl font-medium text-[#08101f] hover:bg-[#74a0ff]"
                   >
                     Importer {selected.players.length} joueurs
                   </button>
@@ -120,15 +120,15 @@ export function ImportClubModal({ onClose }: Props) {
                     <button
                       type="button"
                       onClick={() => setSelected(c)}
-                      className="flex w-full items-center justify-between px-1 py-1.5 text-left text-base text-gray-200 hover:bg-white/5"
+                      className="flex w-full items-center justify-between px-1 py-1.5 text-left text-xl text-gray-200 hover:bg-white/5"
                     >
                       <span>{c.club}</span>
-                      <span className="text-sm text-gray-400">{c.league}</span>
+                      <span className="text-lg text-gray-400">{c.league}</span>
                     </button>
                   </li>
                 ))}
                 {query.trim().length >= 2 && results.length === 0 && (
-                  <li className="px-1 py-1.5 text-sm text-gray-400">Aucun club trouvé.</li>
+                  <li className="px-1 py-1.5 text-lg text-gray-400">Aucun club trouvé.</li>
                 )}
               </ul>
             )}
