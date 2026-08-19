@@ -1,12 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useStore } from '../store/store';
 import type { PositionCode } from '../types/domain';
-
-interface ClubData {
-  club: string;
-  league: string;
-  players: { n: string; p: string }[];
-}
+import { loadClubs } from '../data/clubsData';
+import type { ClubData } from '../data/clubsData';
 
 interface Props {
   onClose: () => void;
@@ -21,12 +17,8 @@ export function ImportClubModal({ onClose }: Props) {
   const [imported, setImported] = useState(false);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/clubs.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error('failed');
-        return res.json();
-      })
-      .then((data: ClubData[]) => setClubs(data))
+    loadClubs()
+      .then((data) => setClubs(data))
       .catch(() => setError(true));
   }, []);
 

@@ -60,6 +60,23 @@ export const FORMATIONS: FormationDef[] = [
     line(52, [{ code: 'MC' }, { code: 'MC' }, { code: 'MC' }]),
     line(18, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
   ]),
+  build('4-3-3-offensif', '4-3-3 Offensif', [
+    line(78, back4()),
+    line(60, [{ code: 'MDC' }]),
+    line(42, [{ code: 'MC' }, { code: 'MC' }]),
+    line(16, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
+  build('4-3-3-defensif', '4-3-3 Défensif', [
+    line(78, back4()),
+    line(60, [{ code: 'MDC' }, { code: 'MDC' }]),
+    line(40, [{ code: 'MC' }]),
+    line(20, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
+  build('4-3-3-conservateur', '4-3-3 Conservateur', [
+    line(78, back4()),
+    line(56, [{ code: 'MDC' }, { code: 'MC' }, { code: 'MDC' }]),
+    line(22, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
+  ]),
   build('4-2-3-1', '4-2-3-1', [
     line(78, back4()),
     line(60, [{ code: 'MDC' }, { code: 'MDC' }]),

@@ -128,7 +128,10 @@ interface StoreApi {
   deleteCareer: (id: string) => void;
   setActiveCareer: (id: string | null) => void;
   addPlayer: (input: Partial<Player> & { name: string; positionCode: PositionCode }) => string;
-  addPlayers: (inputs: Array<Partial<Player> & { name: string; positionCode: PositionCode }>) => void;
+  addPlayers: (
+    inputs: Array<Partial<Player> & { name: string; positionCode: PositionCode }>,
+    careerId?: string,
+  ) => void;
   updatePlayer: (id: string, patch: Partial<Player>) => void;
   deletePlayer: (id: string) => void;
   reorderDepth: (
@@ -215,9 +218,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   );
 
   const addPlayers = useCallback<StoreApi['addPlayers']>(
-    (inputs) => {
-      if (!activeCareer || inputs.length === 0) return;
-      const players = inputs.map((input) => buildPlayer(activeCareer.id, input));
+    (inputs, careerId) => {
+      const targetId = careerId ?? activeCareer?.id;
+      if (!targetId || inputs.length === 0) return;
+      const players = inputs.map((input) => buildPlayer(targetId, input));
       dispatch({ type: 'ADD_PLAYERS', players });
     },
     [activeCareer],

@@ -15,6 +15,12 @@ body {
   color: #e5e7eb;
 }
 
+select,
+select option {
+  background-color: #1a1d27;
+  color: #e5e7eb;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

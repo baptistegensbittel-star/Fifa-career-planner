@@ -4,6 +4,7 @@ import type { FormationCode, Player, PositionCode } from '../types/domain';
 import { useStore } from '../store/store';
 import { sortByDepthOrder, tierDef } from '../utils/helpers';
 import { PlayerModal } from './PlayerModal';
+import { TierLegend } from './TierLegend';
 
 export function PitchView() {
   const { activeCareer, careerPlayers, updateCareer } = useStore();
@@ -12,24 +13,28 @@ export function PitchView() {
 
   const formation = getFormation(activeCareer?.formation ?? '4-2-3-1');
 
-  const titulairesByPosition = useMemo(() => {
-    const map = new Map<string, Player[]>();
+  const byPositionAndDepth = useMemo(() => {
+    const titulaires = new Map<string, Player[]>();
+    const remplacants = new Map<string, Player[]>();
     for (const p of careerPlayers) {
-      if (p.depthCategory !== 'titulaire') continue;
+      const map = p.depthCategory === 'titulaire' ? titulaires : p.depthCategory === 'remplacant' ? remplacants : null;
+      if (!map) continue;
       const list = map.get(p.positionCode) ?? [];
       list.push(p);
       map.set(p.positionCode, sortByDepthOrder(list));
     }
-    return map;
+    return { titulaires, remplacants };
   }, [careerPlayers]);
 
   const usedIndexByPosition = new Map<string, number>();
 
-  function nextPlayerFor(positionCode: string): Player | null {
+  function nextPairFor(positionCode: string): { titulaire: Player | null; remplacant: Player | null } {
     const idx = usedIndexByPosition.get(positionCode) ?? 0;
-    const list = titulairesByPosition.get(positionCode) ?? [];
     usedIndexByPosition.set(positionCode, idx + 1);
-    return list[idx] ?? null;
+    return {
+      titulaire: byPositionAndDepth.titulaires.get(positionCode)?.[idx] ?? null,
+      remplacant: byPositionAndDepth.remplacants.get(positionCode)?.[idx] ?? null,
+    };
   }
 
   return (
@@ -64,49 +69,62 @@ export function PitchView() {
         <div className="absolute left-1/2 bottom-3 h-16 w-40 -translate-x-1/2 border border-b-0 border-white/20" />
 
         {formation.slots.map((slot) => {
-          const player = nextPlayerFor(slot.positionCode);
-          const tier = tierDef(player?.tier ?? null);
+          const { titulaire, remplacant } = nextPairFor(slot.positionCode);
+          const tier = tierDef(titulaire?.tier ?? null);
+          const subTier = tierDef(remplacant?.tier ?? null);
           return (
-            <button
+            <div
               key={slot.key}
-              type="button"
-              onClick={() => (player ? setEditing(player) : setAddingPosition(slot.positionCode))}
-              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 hover:opacity-80"
+              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5"
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
-              title={player ? 'Modifier le joueur' : 'Ajouter un titulaire'}
             >
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-full border text-[11px] text-white"
-                style={{
-                  background: tier ? tier.color : player ? '#3f4657' : 'rgba(255,255,255,0.08)',
-                  borderColor: 'rgba(255,255,255,0.4)',
-                  color: tier ? tier.textColor : '#fff',
-                }}
+              <button
+                type="button"
+                onClick={() => (titulaire ? setEditing(titulaire) : setAddingPosition(slot.positionCode))}
+                className="flex flex-col items-center gap-0.5 hover:opacity-80"
+                title={titulaire ? 'Modifier le titulaire' : 'Ajouter un titulaire'}
               >
-                {player?.rating ?? slot.label}
-              </div>
-              <span className="max-w-[72px] truncate bg-black/50 px-1 text-[10px] text-white">
-                {player?.name ?? slot.label}
-              </span>
-            </button>
+                <div
+                  className="flex h-8 w-8 items-center justify-center rounded-full border text-[11px] text-white"
+                  style={{
+                    background: tier ? tier.color : titulaire ? '#3f4657' : 'rgba(255,255,255,0.08)',
+                    borderColor: 'rgba(255,255,255,0.4)',
+                    color: tier ? tier.textColor : '#fff',
+                  }}
+                >
+                  {titulaire?.rating ?? slot.label}
+                </div>
+                <span className="max-w-[76px] truncate bg-black/50 px-1 text-[10px] text-white">
+                  {titulaire?.name ?? slot.label}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => remplacant && setEditing(remplacant)}
+                className={`max-w-[76px] truncate px-1 text-[9px] ${
+                  remplacant ? 'text-gray-300 hover:text-white' : 'text-gray-600'
+                }`}
+                title={remplacant ? 'Modifier le remplaçant' : 'Aucun remplaçant à ce poste'}
+              >
+                {remplacant ? (
+                  <span className="flex items-center gap-1">
+                    <span
+                      className="h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: subTier?.color ?? '#5b6478' }}
+                    />
+                    <span className="truncate">{remplacant.name}</span>
+                  </span>
+                ) : (
+                  '—'
+                )}
+              </button>
+            </div>
           );
         })}
       </div>
 
-      <div className="mx-auto flex flex-wrap items-center justify-center gap-3 text-[11px] text-gray-400">
-        {[
-          ['Décisif', '#22c55e'],
-          ['Important', '#3b82f6'],
-          ['Rotation', '#f59e0b'],
-          ['Sporadique', '#eab308'],
-          ['Espoir', '#a855f7'],
-        ].map(([label, color]) => (
-          <span key={label} className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full" style={{ background: color }} />
-            {label}
-          </span>
-        ))}
-      </div>
+      <TierLegend />
 
       {editing && <PlayerModal player={editing} onClose={() => setEditing(null)} />}
       {addingPosition && (

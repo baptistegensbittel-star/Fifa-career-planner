@@ -18,7 +18,6 @@ export function PlayerChip({ player, onEdit, compact }: Props) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    borderLeftColor: tier?.color ?? '#3f4657',
     opacity: isDragging ? 0.4 : 1,
   };
 
@@ -32,11 +31,15 @@ export function PlayerChip({ player, onEdit, compact }: Props) {
         e.stopPropagation();
         onEdit(player);
       }}
-      className={`flex w-full cursor-grab items-center gap-1.5 border-l-[3px] bg-white/[0.04] px-2 py-1 text-xs text-gray-100 active:cursor-grabbing ${
+      className={`flex w-full cursor-grab items-center gap-1.5 bg-white/[0.04] px-2 py-1 text-xs text-gray-100 active:cursor-grabbing ${
         compact ? '' : ''
       }`}
       title="Cliquer pour modifier · glisser pour déplacer"
     >
+      <span
+        className="h-2 w-2 shrink-0 rounded-full"
+        style={{ background: tier?.color ?? '#5b6478' }}
+      />
       <span className="truncate">{player.name || 'Sans nom'}</span>
       {player.rating != null && (
         <span className="ml-auto shrink-0 text-[10px] tabular-nums text-gray-400">

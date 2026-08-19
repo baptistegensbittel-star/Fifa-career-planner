@@ -17,6 +17,7 @@ import { SquadCell } from './SquadCell';
 import { PlayerChip } from './PlayerChip';
 import { PlayerModal } from './PlayerModal';
 import { ImportClubModal } from './ImportClubModal';
+import { TierLegend } from './TierLegend';
 
 type Columns = Record<string, Player[]>;
 
@@ -160,7 +161,8 @@ export function SquadBoard() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex justify-end">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <TierLegend />
         <button
           type="button"
           onClick={() => setImportOpen(true)}
