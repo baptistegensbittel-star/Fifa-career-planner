@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useStore } from '../store/store';
 import type { Career } from '../types/domain';
 
-export type Tab = 'squad' | 'pitch';
+export type Tab = 'squad' | 'pitch' | 'honors';
 
 interface Props {
   tab: Tab;
@@ -42,6 +42,7 @@ export function TopBar({ tab, onTabChange }: Props) {
   const tabs: { id: Tab; label: string }[] = [
     { id: 'squad', label: 'Effectif' },
     { id: 'pitch', label: 'Terrain' },
+    { id: 'honors', label: 'Palmarès' },
   ];
 
   return (

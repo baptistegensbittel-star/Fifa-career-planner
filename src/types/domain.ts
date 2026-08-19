@@ -87,12 +87,22 @@ export interface FormationDef {
   slots: FormationSlot[];
 }
 
+export interface SeasonRecord {
+  id: string;
+  season: string;
+  position: string;
+  trophies: string[];
+}
+
 export interface Career {
   id: string;
   name: string;
   club: string;
   season: string;
   formation: FormationCode;
+  position: string;
+  trophies: string[];
+  seasonHistory: SeasonRecord[];
   createdAt: number;
   updatedAt: number;
 }

@@ -62,8 +62,8 @@ export const FORMATIONS: FormationDef[] = [
   ]),
   build('4-3-3-offensif', '4-3-3 Offensif', [
     line(78, back4()),
-    line(60, [{ code: 'MDC' }]),
-    line(42, [{ code: 'MC' }, { code: 'MC' }]),
+    line(54, [{ code: 'MC' }, { code: 'MC' }]),
+    line(34, [{ code: 'MOC' }]),
     line(16, [{ code: 'AG' }, { code: 'BU' }, { code: 'AD' }]),
   ]),
   build('4-3-3-defensif', '4-3-3 Défensif', [

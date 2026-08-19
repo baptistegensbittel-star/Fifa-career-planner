@@ -14,9 +14,27 @@ import type {
   DepthCategory,
   Player,
   PositionCode,
+  SeasonRecord,
 } from '../types/domain';
 
 const STORAGE_KEY = 'fifa-career-planner:v1';
+
+function normalizeCareer(c: Career): Career {
+  return {
+    ...c,
+    position: c.position ?? '',
+    trophies: c.trophies ?? [],
+    seasonHistory: c.seasonHistory ?? [],
+  };
+}
+
+export function incrementSeasonLabel(season: string): string {
+  const match = season.trim().match(/^(\d{4})\s*\/\s*(\d{4})$/);
+  if (!match) return season;
+  const start = Number(match[1]) + 1;
+  const end = Number(match[2]) + 1;
+  return `${start}/${end}`;
+}
 
 type Action =
   | { type: 'HYDRATE'; state: AppState }
@@ -49,7 +67,7 @@ function loadState(): AppState {
     if (!raw) return initialState;
     const parsed = JSON.parse(raw) as AppState;
     if (!parsed.careers || !parsed.players) return initialState;
-    return parsed;
+    return { ...parsed, careers: parsed.careers.map(normalizeCareer) };
   } catch {
     return initialState;
   }
@@ -59,7 +77,7 @@ function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'HYDRATE':
     case 'IMPORT_STATE':
-      return action.state;
+      return { ...action.state, careers: action.state.careers.map(normalizeCareer) };
     case 'ADD_CAREER':
       return {
         ...state,
@@ -125,6 +143,7 @@ interface StoreApi {
   careerPlayers: Player[];
   addCareer: (input: Pick<Career, 'name' | 'club' | 'season' | 'formation'>) => string;
   updateCareer: (id: string, patch: Partial<Career>) => void;
+  archiveSeason: (careerId: string, nextSeasonLabel: string) => void;
   deleteCareer: (id: string) => void;
   setActiveCareer: (id: string | null) => void;
   addPlayer: (input: Partial<Player> & { name: string; positionCode: PositionCode }) => string;
@@ -171,7 +190,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const now = Date.now();
     dispatch({
       type: 'ADD_CAREER',
-      career: { id, createdAt: now, updatedAt: now, ...input },
+      career: {
+        id,
+        createdAt: now,
+        updatedAt: now,
+        position: '',
+        trophies: [],
+        seasonHistory: [],
+        ...input,
+      },
     });
     return id;
   }, []);
@@ -179,6 +206,30 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const updateCareer = useCallback<StoreApi['updateCareer']>((id, patch) => {
     dispatch({ type: 'UPDATE_CAREER', id, patch });
   }, []);
+
+  const archiveSeason = useCallback<StoreApi['archiveSeason']>(
+    (careerId, nextSeasonLabel) => {
+      const career = state.careers.find((c) => c.id === careerId);
+      if (!career) return;
+      const record: SeasonRecord = {
+        id: uuidv4(),
+        season: career.season,
+        position: career.position,
+        trophies: career.trophies,
+      };
+      dispatch({
+        type: 'UPDATE_CAREER',
+        id: careerId,
+        patch: {
+          season: nextSeasonLabel,
+          position: '',
+          trophies: [],
+          seasonHistory: [...career.seasonHistory, record],
+        },
+      });
+    },
+    [state.careers],
+  );
 
   const deleteCareer = useCallback<StoreApi['deleteCareer']>((id) => {
     dispatch({ type: 'DELETE_CAREER', id });
@@ -274,6 +325,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     careerPlayers,
     addCareer,
     updateCareer,
+    archiveSeason,
     deleteCareer,
     setActiveCareer,
     addPlayer,
